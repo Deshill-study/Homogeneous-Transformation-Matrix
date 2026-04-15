@@ -40,15 +40,13 @@ class Transformation:
             [0, 0, 1, z],
             [0, 0, 0, 1]
         ])
-
-
+    
 
 # ======================================================
 #           齐次变换矩阵 - 移动坐标系变换
 #           具体题目查看image文件夹下的q1.png
 # ======================================================
 transformation = Transformation()
-
 
 # 参数
 L1, L2 = 2, 1.5
@@ -81,3 +79,15 @@ y = L1*np.sin(theta1)+L2*np.sin(theta2+theta1)
 
 print(f"末端位置: ({x:.3f}, {y:.3f})")
 
+
+# ======================================================
+#           齐次变换矩阵 - 定坐标系变换
+#           具体题目查看image文件夹下的q2.png
+#           需要注意这时候先变换的要写在右边
+# ======================================================
+
+theta1, theta2, theta3 = np.radians(45), np.radians(30),np.radians(15)
+T_total = transformation.translate(10,0,0)@transformation.rot_x(theta3)@transformation.rot_y(theta2)@transformation.rot_z(theta1)
+
+end_effector = T_total @ np.array([1, 0, 0, 1])
+print(f"末端位置: ({end_effector[0]:.3f}, {end_effector[1]:.3f},{end_effector[1]:.3f})")
